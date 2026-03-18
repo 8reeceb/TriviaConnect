@@ -2,7 +2,7 @@ import random
 from datetime import datetime, timedelta
 import sqlite3
 
-questions = "" #path to database
+questions = 'TriviaApp.db'
 
 class GameLogic:
   def __init__(self):
