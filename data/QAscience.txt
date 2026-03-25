@@ -1,0 +1,350 @@
+How many moons does Mars have? 
+2 
+1 
+0 
+3 
+How far is the moon away from the Earth? 
+238,900 miles 
+288,900 miles 
+268,900 miles 
+298,900 miles 
+What is the 6th planet from the Sun? 
+Saturn  
+Earth 
+Jupiter 
+Pluto 
+How far away is the Karman line (the border between Earth’s atmosphere and the beginning of space)? 
+62 miles above sea level 
+65 miles above sea level 
+152 miles above sea level 
+155 miles above sea level 
+Which of the following people have not walked on the moon? 
+Tommy Lloyd 
+Pete Conrad 
+David Scott 
+James Irwin 
+How far can you see through the James Webb Space Telescope? 
+13.5 billion light years away 
+13.5 million light years away 
+13.5 trillion light years away 
+13.5 thousand light years away 
+How many times does it take folding a piece of paper in order to reach the moon? 
+42  
+921 
+73 
+273  
+What is the most abundant element in the Earth’s atmosphere? 
+Nitrogen  
+Oxygen 
+Carbon dioxide 
+Hydrogen 
+What does sodium and chlorine make in a reaction? 
+Salt 
+Pepper 
+Water 
+Uranium  
+How many of the 118 elements on the periodic table occur naturally on Earth? 
+94 
+118 
+0 
+71 
+What does the atomic number tell you about an element? 
+The number of protons 
+The number of neutrons 
+The number of electrons 
+The order in which the element was found 
+What is the only element to have its first discovery before it was found on Earth (It was found in the spectrum of the Sun’s light)? 
+Helium 
+Oxygen 
+Germanium 
+Curium 
+How many groups are there on the periodic table? 
+18 
+7 
+14 
+15 
+How many periods are there on the periodic table? 
+7 
+18 
+15 
+14  
+What is the largest bone in the human body? 
+Femur 
+Skull 
+Tibia 
+Spine 
+How many chambers are there in the human heart? 
+4 
+3 
+5 
+2 
+What is the heaviest internal organ? 
+Liver 
+Stomach 
+Lungs 
+Large intestine 
+What does DNA stand for? 
+Deoxyribonucleic acid 
+Deoxynucleic acid 
+Deribonucleic acid 
+Denucleic acid 
+How many insects are there for every human alive? 
+170 million 
+17 million 
+1.7 million 
+.17 million 
+What is the study of fungi called? 
+Mycology 
+Myceliology 
+Fungology 
+Fungiology 
+What is the process for cell division called? 
+Mitosis 
+Miosis 
+Diosis 
+Ditosis  
+What is the acceleration due to gravity on earth? 
+9.8 m/s2 
+9.8 m/s 
+8.9 m/s2 
+8.9 m/s 
+Which of Newton’s Laws states that “For every action, there is an equal and opposite reaction”? 
+3 
+2 
+1 
+That wasn’t Newton 
+Which planet is the hottest in the solar system? 
+Venus 
+Mars 
+Earth 
+Sun 
+What color is the sunset on Mars? 
+Blue 
+Yellow 
+Red 
+Green 
+How long does it take for light from the Sun to reach the Earth? 
+8 minutes 
+Instant  
+4 minutes 
+2 minutes 
+What is the only rock that floats in water? 
+Pumice 
+Sandstone 
+Talc 
+Gravel 
+What is the name of the process that turns a solid directly into a gas? 
+Sublimation 
+Liquidation 
+Freezing 
+Deposition 
+What is the heaviest land animal? 
+Elephant  
+Hippo  
+Lion
+Giraffe 
+What is the tallest land animal? 
+Giraffe  
+Elephant 
+Gorilla 
+Penguin 
+What is the largest water animal ever? 
+Blue whale 
+Lion's mane jellyfish 
+Whale shark 
+Japanese spider crab 
+What animal has 30,000 teeth? 
+Snail 
+Shark 
+Bee 
+Bat 
+What is the fastest bird in the world? 
+Peregrine falcon 
+Bald eagle 
+Captain falcon 
+Pigeon 
+What is the only marsupial in North America? 
+Opposum 
+Raccoon 
+Skunk 
+Squirrel  
+What animal has the highest blood pressure? 
+Giraffe 
+Dog 
+Lion 
+Whale  
+Who is known for the theory of relativity? 
+Albert Einstein 
+Charles Darwin 
+Isaac Newton 
+Thomas Edison 
+Who is considered the “father of modern chemistry”? 
+Antoine-Laurent Lavoisier 
+Marie Curie 
+Pierre Curie 
+Albert Einstein 
+Who developed the theory of electromagnetism? 
+Nikola Tesla 
+Thomas Edison 
+Albert Einstein 
+Benjamin Franklin 
+Who discovered radioactivity? 
+Marie Curie 
+Pierre Curie 
+Albert Einstein 
+James Clerk Maxwell 
+Who developed the theory of evolution by natural selection? 
+Charles Darwin 
+Albert Einstein 
+Isaac Newton 
+Nikola Tesla
+What is the name of the molten rock beneath Earth’s surface? 
+Magma 
+Lava 
+Core 
+Mantle 
+What is the scale used to measure earthquakes called? 
+Richter scale 
+Beaufort scale 
+Mercali scale 
+Fujita scale 
+Which geological era is known as the “Age of Dinosaurs”? 
+Mesozoic Era 
+Precambrian Era 
+Cenozoic Era 
+Paleozoic Era 
+What is the process by which rocks are broken down into smaller particles by natural forces called? 
+Erosion 
+Lithification 
+Weathering  
+Subduction 
+What is the hardest known natural mineral? 
+Diamond  
+Quartz 
+Talc 
+Topaz 
+What is the largest ocean in the world? 
+Pacific 
+Atlantic 
+Indian 
+Southern 
+What African country has the biggest population? 
+Nigeria 
+South Africa 
+Kenya 
+Democratic Republic of the Congo 
+In which country would you find the Great Barrier Reef? 
+Australia 
+New Zealand 
+Denmark 
+Chile 
+Which country is home to the ancient city of Petra? 
+Jordan 
+Saudi Arabia 
+India 
+Iran 
+What is the world’s largest landlocked country? 
+Kazakhstan 
+Mongolia 
+China 
+Hungary 
+Which US State is closest to Africa? 
+Maine  
+Florida 
+North Carolina 
+California 
+What is the highest uninterrupted waterfall? 
+Angel Falls 
+Victoria Falls 
+Niagara Falls 
+Water Falls 
+What is the longest river in the world? 
+Nile River 
+Amazon River 
+Mississippi River 
+Tigres River 
+What is the tallest mountain in the world above sea level? 
+Mount Everest  
+Mount Kilimanjaro 
+Denali 
+Mount Olympus 
+Which country is known as the “Land of the Rising Sun”? 
+Japan  
+Australia 
+Netherlands 
+Fiji  
+What landform is surrounded by water on three sides? 
+Peninsula 
+Archipelago 
+Island 
+Lake 
+What do you call a low area of land between mountains or hills, often containg a river? 
+Valley 
+Canyon 
+Puddle 
+Plateau 
+How long did it take the Colorado River take to carve the Grand Canyon? 
+Six million years 
+Five million years 
+Three days  
+Forty million years 
+What is a body of water smaller than a gulf, but partly enclosed by land? 
+Bay 
+Gulf 
+Port 
+Wave 
+What is a steep vertical rock face called? 
+Cliff 
+Mountain 
+Hill 
+Plateau 
+How many bones are in the human body? 
+206 
+207 
+208 
+209 
+What does the circadian rhythm do? 
+Regulates the body’s sleep-wake cycle 
+Regulates your breathing 
+Regulates your heartbeat 
+Tells you when you are hungry 
+What is sepsis an infection of? 
+Blood 
+Ear 
+Mouth 
+Skin  
+What was the first vaccine developed for? 
+Smallpox 
+Polio 
+Tuberculosis 
+Chickenpox 
+How many times does the average person blink in a day? 
+12,000 
+15,000 
+8,000 
+5,000	 
+How long is the human long intestine? 
+5 feet 
+4 feet 
+6 feet 
+7 feet 
+How many times does the heart beat in a lifetime 
+3 billion 
+2 billion 
+4 billion 
+5 billion 
+What is the rarest blood type? 
+Rhnull  
+O positive 
+O negative  
+A positve 
+What is the only bone that is not connected to another bone? 
+Hyoid  
+Eardrum 
+Patella 
+Malleus 
+What is the largest organ in the human body? 
+Skin 
+Lungs 
+Large intestine 
+Brain 
