@@ -1,0 +1,410 @@
+<!-- known bugs 
+ - progress bar doesnt show up
+ - score doesnt reset when play again is clicked
+ - the bar at the bottom of the trivia screen stays full after the first question and doesnt reset for the next questions, but I kinda like that cuz it has a kahoot type effect, so maybe I will just leave it as is
+ - text isnt centered in some places
+ - colors are a little off in some places, like the feedback messages and the mode selection buttons, but I think they look good enough for now and I can always come back and tweak them later
+ - scroll bar between trivia categories is colored wrong
+ - colors are weird on the results screen on the questions you missed section
+ - play again and home buttons are on top of each other on the results screen
+
+-->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">   <!-- mobile device screen -->
+  <title>TriviaConnect</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> <!-- linking the CSS stylesheet for styling the app -->
+</head>
+<body>
+  <div class="app-container"> <!-- main background for the app -->
+    <!-- app header -->
+    <div class="app-header">
+      <span class="header-trivia">Trivia</span><span class="header-connect">Connect</span>
+    </div>
+
+    <!-- first screen (home page) -->
+    <div id="homeScreen" class="screen active">
+      <div class="screen-content">
+        <h1 class="title">Welcome to TriviaConnect!</h1>
+        <p class="subtitle">Test your knowledge</p>
+
+        <div class="form-section"> <!-- category selection -->
+          <label for="categorySelect">Select Category:</label>
+          <select id="categorySelect">
+            <option value="History">History</option>
+            <option value="Movies">Movies</option>
+            <option value="Music">Music</option>
+            <option value="Science">Science</option>
+            <option value="Sports">Sports</option>
+            <option value="TV">TV</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label>Game Mode:</label>  <!-- game mode selection -->
+          <div class="mode-buttons">
+            <button class="mode-btn active" data-mode="classic">
+              <div class="mode-title">Classic</div>
+              <div class="mode-desc">No time limit</div>
+            </button>
+            <button class="mode-btn" data-mode="speedrun">
+              <div class="mode-title">Speed Run</div>
+              <div class="mode-desc">15 sec per Question</div>
+            </button>
+            <button class="mode-btn" data-mode="blitz">
+              <div class="mode-title">Blitz</div>
+              <div class="mode-desc">10 sec per Question</div>
+            </button>
+          </div>
+        </div>
+
+        <button id="playBtn" class="btn-primary">Play Game</button>
+      </div>
+    </div>
+
+    <!-- screen two (trivia screen) -->
+    <div id="triviaScreen" class="screen">
+      <div class="game-header"> <!-- header section of the trivia screen showing question number, timer, and score -->
+        <div class="progress-info"> <!-- question number and progress bar -->
+          <span id="questionNumber">1</span> / 10 <!-- shows the current question number out of 10 -->
+        </div>
+        <div class="timer" id="timer">15s</div> <!-- timer display, will show time remaining for speedrun and blitz modes -->
+        <div class="score-info">
+          Score: <span id="gameScore">0</span> <!-- displays the current score, which updates after each question -->
+        </div>
+      </div>
+
+      <div class="screen-content">
+        <div class="progress-bar"> <!-- progress bar at the bottom of the trivia screen that fills up as the user progresses through the questions -->
+          <div id="progressFill" class="progress-fill"></div>
+        </div>
+
+        <h2 id="questionText" class="question-text">Question will appear here</h2> <!-- if the quesetions dont load this text appears -->
+
+        <div id="answersContainer" class="answers-container"></div> <!-- container for the answer buttons, which will be generated dynamically based on the loaded questions and answers -->
+
+        <div id="feedbackMessage" class="feedback-message"></div> <!-- area for displaying feedback messages after the user selects an answer, such as "Correct!" or "Wrong! The correct answer was..." -->
+      </div>
+    </div>
+
+    <!-- screen three (results screen) -->
+    <div id="resultsScreen" class="screen">
+      <div class="screen-content"> <!-- content area for displaying the final results after the game is complete -->
+        <h1>Game Complete!</h1>
+
+        <div class="results-stats"> <!-- section for displaying final stats such as final score, accuracy, and number of correct answers -->
+          <div class="stat-box"> <!-- box for final score -->
+            <div class="stat-value" id="finalScore">0</div> 
+            <div class="stat-label">Final Score</div> 
+          </div>
+          <div class="stat-box"> <!-- box for accuracy -->
+            <div class="stat-value" id="accuracy">0%</div>
+            <div class="stat-label">Accuracy</div>
+          </div>
+          <div class="stat-box"> <!-- box for number of correct answers -->
+            <div class="stat-value" id="correct">0</div>
+            <div class="stat-label">Correct</div>
+          </div>
+        </div>
+
+        <div class="wrong-answers-section"> <!-- section for displaying the questions the user missed, along with their answer and the correct answer -->
+          <h3>Questions You Missed:</h3>
+          <div id="wrongAnswersList" class="wrong-answers-list"></div>
+        </div>
+
+        <div class="button-group"> <!-- group for the "Play Again" and "Home" buttons -->
+          <button id="playAgainBtn" class="btn-primary">Play Again</button>
+          <button id="homeBtn" class="btn-secondary">Home</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script> <!-- making everything work for the game -->
+    // Game State
+    const gameState = { // object to hold the current state of the game, including selected category, mode, current question index, score, loaded questions and answers, user answers, start times for each question, wrong answers for review, and whether the game is currently active
+      category: 'Sports',
+      mode: 'classic', // default mode
+      currentQuestion: 0,
+      score: 0,
+      questions: [],
+      answers: [],
+      userAnswers: [],
+      startTimes: [],
+      wrongAnswers: [],
+      gameActive: false
+    };
+
+    const timeLimits = {
+      classic: 999999, // No limit
+      speedrun: 15,
+      blitz: 10
+    };
+
+    // DOM Elements - caching references to important DOM elements for later use
+    const homeScreen = document.getElementById('homeScreen'); // the initial screen where the user selects category and mode
+    const triviaScreen = document.getElementById('triviaScreen'); // the main game screen where questions and answers are displayed, and the user interacts with the game
+    const resultsScreen = document.getElementById('resultsScreen'); // the final screen that shows the user's results after completing the game
+    const categorySelect = document.getElementById('categorySelect'); // dropdown for selecting the trivia category
+    const playBtn = document.getElementById('playBtn'); // button to start the game after selecting category and mode
+    const playAgainBtn = document.getElementById('playAgainBtn'); // button on the results screen to start a new game with the same settings
+    const homeBtn = document.getElementById('homeBtn'); // button on the results screen to return to the home screen and select new category/mode
+    const questionText = document.getElementById('questionText'); // element where the current question text will be displayed on the trivia screen
+    const answersContainer = document.getElementById('answersContainer'); // container element where the answer buttons will be dynamically generated and displayed for each question
+    const gameScore = document.getElementById('gameScore'); // element that displays the user's current score during the game, which updates after each question is answered
+    const questionNumber = document.getElementById('questionNumber'); // element that displays the current question number out of 10 on the trivia screen, which updates as the user progresses through the questions
+    const timerDisplay = document.getElementById('timer'); // element that displays the remaining time for the current question in speedrun and blitz modes, which updates every second and shows a warning when time is running out
+    const feedbackMessage = document.getElementById('feedbackMessage'); // element that displays feedback messages after the user selects an answer, such as "Correct! +X points" or "Wrong! The correct answer was...", which updates after each question is answered to provide immediate feedback on the user's selection
+    const progressFill = document.getElementById('progressFill'); // element that fills up the progress bar at the bottom of the trivia screen as the user progresses through the questions, which updates after each question to visually indicate how many questions have been completed out of 10
+
+    let gameTimer = null;
+    let questionTimer = null;
+    let timeRemaining = 0;
+
+    // selecting a mode and making it active and deactivating the other modes
+    document.querySelectorAll('.mode-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        gameState.mode = this.dataset.mode;
+      });
+    });
+
+    // starting the game when play button is clicked and loading the questions and answers from the backend
+    playBtn.addEventListener('click', async () => {
+      gameState.category = categorySelect.value;
+      gameState.mode = document.querySelector('.mode-btn.active').dataset.mode;
+      await startGame();
+    });
+
+    async function startGame() { /* function to initialize the game state, load questions and answers from the backend, and show the trivia screen */
+      gameState.currentQuestion = 0;
+      gameState.score = 0;
+      gameState.questions = [];
+      gameState.answers = [];
+      gameState.userAnswers = [];
+      gameState.startTimes = [];
+      gameState.wrongAnswers = [];
+      gameState.gameActive = true;
+      gameState.usedQuestionIds = new Set(); // to keep track of which question IDs have already been loaded to ensure uniqueness
+
+      // loading ten unique questions and answers for the selected category from the backend
+      let attempts = 0;
+      while (gameState.questions.length < 10 && attempts < 60) { // adding an attempts counter to prevent infinite loops in case the backend fails to provide enough unique questions for some reason, allowing up to 60 attempts to load questions (which should be more than enough to get 10 unique questions given a reasonably sized question pool on the backend)
+        attempts += 1;
+        try {
+          const response = await fetch(`/api/question/${gameState.category}`); // making a request to the backend API to get a question for the selected category, expecting a response that includes a unique question ID, the question text, and an array of answers with the correct answer as the first element
+          const data = await response.json(); // parsing the JSON response from the backend to extract the question data, which should include an 'id' field for the unique question ID, a 'question' field for the question text, and an 'answers' field which is an array of possible answers with the correct answer as the first element
+
+          if (data.error) { // error handling in case the backend returns an error message instead of a valid question, logging the error to the console and breaking out of the loop if an error is encountered to prevent further attempts to load questions
+            console.error('Error from backend:', data.error);
+            break;
+          }
+
+          if (!gameState.usedQuestionIds.has(data.id)) { // ensuring that the same question is not loaded more than once
+            gameState.usedQuestionIds.add(data.id);
+            gameState.questions.push(data.question);
+            gameState.answers.push(data.answers);
+            gameState.userAnswers.push(null);
+            gameState.startTimes.push(null);
+          }
+        } catch (error) { // error handling for network issues or unexpected problems when making the fetch request to the backend, logging the error to the console and breaking out of the loop if an error occurs to prevent further attempts to load questions
+          console.error('Error loading question:', error);
+          break;
+        }
+      }
+
+      if (gameState.questions.length === 0) { // if no questions were successfully loaded from the backend, showing an alert to the user and returning early to prevent starting the game without any questions
+        alert('Failed to load questions');
+        return;
+      }
+
+      showScreen('trivia');  //calling the functions to show the trivia screen and load the first question
+      loadQuestion();
+    }
+
+    function loadQuestion() { /* function to load the current question and answers into the DOM, start the timer, and set up event listeners for answer selection */
+      if (gameState.currentQuestion >= 10) { // if the current question index is greater than or equal to 10, it means the game is complete, so we call the function to end the game and show the results screen
+        endGame();
+        return;
+      }
+
+      const question = gameState.questions[gameState.currentQuestion];
+      const answers = gameState.answers[gameState.currentQuestion];
+      // Record the start time for this question
+      gameState.startTimes[gameState.currentQuestion] = Date.now();
+      questionText.textContent = question.trim();
+      answersContainer.innerHTML = '';
+      feedbackMessage.textContent = '';
+
+      questionNumber.textContent = gameState.currentQuestion + 1;
+      progressFill.style.width = ((gameState.currentQuestion / 10) * 100) + '%';
+
+      // shuffling the answers so the correct answer is not always in the same position
+      const shuffled = [...answers].sort(() => Math.random() - 0.5);
+
+      // creating buttons for each answer and adding event listeners to them
+      shuffled.forEach((answer, index) => {
+        const btn = document.createElement('button');
+        btn.className = 'answer-btn';
+        btn.textContent = answer.trim();
+        btn.addEventListener('click', () => selectAnswer(answer.trim(), index));
+        answersContainer.appendChild(btn);
+      });
+
+      // Start timer for this question
+      startQuestionTimer();
+    }
+
+    // function to start the timer for each question based on the selected game mode
+    function startQuestionTimer() {
+      if (questionTimer) clearInterval(questionTimer);
+
+      const timeLimit = timeLimits[gameState.mode];
+      timeRemaining = timeLimit;
+      updateTimerDisplay();
+
+      if (gameState.mode === 'classic') { // in classic mode, we hide the timer display since there is no time limit, and we don't start a timer interval
+        timerDisplay.style.display = 'none';
+      } else {
+        timerDisplay.style.display = 'block'; // in speedrun and blitz modes, we show the timer display and start an interval that counts down every second, updating the display and checking if time has run out to automatically select no answer if the user doesn't answer in time
+        questionTimer = setInterval(() => {
+          timeRemaining--;
+          updateTimerDisplay();
+
+          if (timeRemaining <= 0) { // when time runs out, we clear the timer interval and automatically select no answer for the user, which will be treated as an incorrect answer in the scoring logic
+            clearInterval(questionTimer);
+            selectAnswer(null, -1); // No answer selected
+          }
+        }, 1000);
+      }
+    }
+
+    // function to update the timer display and add a warning class when time is running out
+    function updateTimerDisplay() {
+      if (gameState.mode !== 'classic') { // we only update the timer display in speedrun and blitz modes, since classic mode does not have a time limit
+        timerDisplay.textContent = timeRemaining + 's';
+        if (timeRemaining <= 3) { // when there are 3 seconds or less remaining, we add a 'warning' class to the timer display to visually indicate that time is running out, which can be styled with CSS to change the color or add an animation for emphasis
+          timerDisplay.classList.add('warning');
+        } else { // if there are more than 3 seconds remaining, we remove the 'warning' class to return the timer display to its normal appearance
+          timerDisplay.classList.remove('warning');
+        }
+      }
+    }
+
+    // function to handle answer selection, calculate score, provide feedback, and move to the next question
+    function selectAnswer(selected, answerIndex) { // when the user selects an answer (or when time runs out and no answer is selected), this function is called to process the selection, check if it's correct, calculate points based on the time taken and game mode, update the score, provide feedback to the user, disable further answer selection for the current question, and then move to the next question after a short delay to allow the user to see the feedback message before proceeding
+      if (!gameState.gameActive) return;
+
+      gameState.gameActive = false; // we set gameActive to false to prevent multiple selections or interactions while we are processing the current answer and providing feedback, ensuring that the user can only select one answer per question and that the game logic runs smoothly without conflicts from multiple clicks or timer events
+      clearInterval(questionTimer);
+
+      // Check if the selected answer is correct
+      const correctAnswer = gameState.answers[gameState.currentQuestion][0].trim();
+      const isCorrect = selected === correctAnswer;
+      const timeTaken = (Date.now() - gameState.startTimes[gameState.currentQuestion]) / 1000;
+
+      gameState.userAnswers[gameState.currentQuestion] = selected; // we record the user's selected answer (or null if time ran out) in the game state for later use in calculating final results and showing which questions were missed on the results screen
+
+      if (isCorrect) {
+        // Calculate points based on time
+        let points = 100;
+        if (gameState.mode === 'speedrun') { // in speedrun mode, we calculate points by starting with a base of 100 and subtracting points based on the time taken, with a faster answer yielding more points, and ensuring that the minimum points awarded is 0 to prevent negative scores
+          points = Math.max(0, 100 - Math.floor(timeTaken * 3));
+        } else if (gameState.mode === 'blitz') { // in blitz mode, we calculate points similarly to speedrun mode but with a steeper penalty for time taken to reflect the faster pace of the game, subtracting more points based on the time taken and again ensuring that the minimum points awarded is 0
+          points = Math.max(0, 100 - Math.floor(timeTaken * 5));
+        } else { // in classic mode, we simply award a flat 100 points for a correct answer regardless of time taken, since there is no time limit and we want to reward correct answers without penalizing for time
+          points = 100;
+        }
+
+        // Update score and provide feedback
+        gameState.score += points;
+        gameScore.textContent = gameState.score;
+        feedbackMessage.textContent = `✓ Correct! +${points} points`; 
+        feedbackMessage.className = 'feedback-message correct';
+      } else {
+        feedbackMessage.textContent = `✗ Wrong! Answer: ${correctAnswer}`;
+        feedbackMessage.className = 'feedback-message incorrect';
+        gameState.wrongAnswers.push({ // if the answer is incorrect, we add an entry to the wrongAnswers array in the game state, which includes the question text, the user's selected answer (or 'No answer' if time ran out), and the correct answer, so that we can display this information on the results screen to help the user review the questions they missed and learn from their mistakes
+          question: gameState.questions[gameState.currentQuestion],
+          userAnswer: selected || 'No answer',
+          correctAnswer: correctAnswer
+        });
+      }
+
+      // Disable all answer buttons after the question is answered
+      document.querySelectorAll('.answer-btn').forEach(btn => {
+        btn.disabled = true;
+      });
+
+      // Move to the next question after a short delay to show feedback
+      setTimeout(() => {
+        gameState.currentQuestion++;
+        gameState.gameActive = true;
+        if (gameState.currentQuestion < 10) {
+          loadQuestion();
+        } else {
+          endGame();
+        }
+      }, 2000);
+    }
+
+    // function to end the game, calculate final stats, and display results
+    function endGame() {
+      clearInterval(questionTimer);
+      const correct = gameState.userAnswers.filter((ans, i) => 
+        ans === gameState.answers[i][0].trim()
+      ).length;
+      const accuracy = Math.round((correct / 10) * 100);
+
+      document.getElementById('finalScore').textContent = gameState.score;
+      document.getElementById('accuracy').textContent = accuracy + '%';
+      document.getElementById('correct').textContent = correct + ' / 10';
+
+      const wrongAnswersList = document.getElementById('wrongAnswersList');
+      wrongAnswersList.innerHTML = '';
+
+      if (gameState.wrongAnswers.length === 0) { // if the user got all questions correct, we display a special message instead of listing missed questions, congratulating them on their perfect score and providing positive reinforcement for their performance
+        wrongAnswersList.innerHTML = '<p class="perfect-score">Perfect! You got them all right!</p>';
+      } else { // if there are any wrong answers, we iterate through the wrongAnswers array in the game state and create a div for each missed question, displaying the question number, the question text, the user's answer, and the correct answer, allowing the user to review their mistakes and learn from them as part of the results screen after completing the game
+        gameState.wrongAnswers.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = 'wrong-answer-item';
+          div.innerHTML = `
+            <div class="wrong-q-number">Q${gameState.questions.indexOf(item.question) + 1}</div>
+            <div class="wrong-q-content">
+              <p class="wrong-question">${item.question}</p>
+              <p class="wrong-user">Your answer: ${item.userAnswer}</p>
+              <p class="wrong-correct">Correct answer: ${item.correctAnswer}</p>
+            </div>
+          `;
+          wrongAnswersList.appendChild(div);
+        });
+      }
+
+      showScreen('results'); // we call the function to switch to the results screen, where the user can see their final score, accuracy, number of correct answers, and review any questions they missed with their selected answer and the correct answer for each missed question
+    }
+
+    playAgainBtn.addEventListener('click', async () => { // when the user clicks the "Play Again" button on the results screen, we call the startGame function again to reset the game state and load a new set of questions for the same category and mode, allowing the user to quickly start a new game without having to return to the home screen and reselect their preferences
+      await startGame();
+    });
+
+    homeBtn.addEventListener('click', () => { // when the user clicks the "Home" button on the results screen, we call the showScreen function to switch back to the home screen, allowing the user to select a new category and mode for their next game if they want to change things up or try a different set of questions
+      showScreen('home');
+    });
+
+    // function to switch between screens by adding/removing the 'active' class
+    function showScreen(screenName) {
+      homeScreen.classList.remove('active');
+      triviaScreen.classList.remove('active');
+      resultsScreen.classList.remove('active');
+
+      if (screenName === 'home') homeScreen.classList.add('active');
+      if (screenName === 'trivia') triviaScreen.classList.add('active');
+      if (screenName === 'results') resultsScreen.classList.add('active');
+    }
+  </script>
+</body>
+</html>
