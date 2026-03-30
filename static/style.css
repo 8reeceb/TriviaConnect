@@ -1,0 +1,529 @@
+* { /* Global reset and box-sizing */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root { /* CSS Variables for consistent theming and easy maintenance */
+  /* Brand Colors */
+  --trivia-orange: #e67e22;
+  --trivia-orange-dark: #d35400;
+  --connect-blue: #85c1e2;
+  --app-bg: #b9e0f9; /* Blue between header and connect blue */
+  --header-bg: #2c3e50;
+  --text-dark: #2c3e50;
+  --text-light: #7f8c8d;
+  
+  /* Answer Option Colors */
+  --option-red: #cc7a7a;
+  --option-yellow: #dfe787;
+  --option-green: #7dd69e;
+  --option-blue: #85559f;
+  
+  /* Feedback Colors */
+  --correct-green: #27ae60;
+  --incorrect-red: #e74c3c;
+  
+  /* UI Colors */
+  --white: #ffffff;
+  --light-gray: #ecf0f1;
+  --medium-gray: #bdc3c7;
+  --dark-gray: #95a5a6;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+body { /* Base styles for the body */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background: var(--app-bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.app-container { /* Main container for the app  */
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
+  max-height: 100vh;
+  background: var(--connect-blue);
+  border-radius: 0;
+  box-shadow: 0 2px 10px var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header { /* Header styles */
+  height: 60px;
+  background: var(--header-bg);
+  color: var(--white);
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: bold;
+  line-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.header-trivia { /* Specific styles for the "Trivia" header */
+  color: var(--trivia-orange);
+}
+
+.header-connect { /* Specific styles for the "Connect" header */
+  color: var(--connect-blue);
+}
+
+.screen { /* Base styles for all screens, hidden by default */
+  display: none;
+  flex: 1;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.screen.active { /* Styles for the active screen */
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn { /* Simple fade-in animation for screen transitions */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.screen-content { /* Common styles for content within each screen */
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+/* HOME SCREEN */
+#homeScreen .screen-content { /* Styles specific to the home screen content */
+  justify-content: flex-start;
+  padding-top: 15px;
+}
+
+.subtitle { /* Styles for the subtitle on the home screen */
+  display: block;
+  font-size: 1.1em;
+  color: var(--text-dark);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.form-section { /* Styles for the form section on the home screen */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.form-section label { /* Styles for labels in the form section */
+  font-weight: 600;
+  color: var(--text-dark);
+  font-size: 1.1em;
+  text-align: center;
+}
+
+.form-section select { /* Styles for select dropdowns in the form section */
+  padding: 12px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 4px;
+  background: var(--white);
+  font-size: 1em;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+
+.mode-buttons { /* Container for the mode selection buttons */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--medium-gray);
+}
+
+.mode-btn { /* Styles for each mode selection button */
+  padding: 18px 15px;
+  border: none;
+  border-bottom: 1px solid var(--medium-gray);
+  border-radius: 0;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-align: left;
+}
+
+.mode-btn:last-child { /* Remove bottom border for the last mode button */
+  border-bottom: none;
+}
+
+.mode-btn:hover { /* Hover effect for mode buttons */
+  background: var(--light-gray);
+}
+
+.mode-btn.active { /* Styles for the active mode button */
+  background: var(--trivia-orange);
+  color: var(--white);
+  border-left: 4px solid var(--trivia-orange-dark);
+  padding-left: 11px;
+}
+
+.mode-title { /* Styles for the mode title within each mode button */
+  font-weight: 700;
+  font-size: 1em;
+  margin-bottom: 3px;
+  color: var(--text-dark);
+}
+
+.mode-desc { /* Styles for the mode description within each mode button */
+  font-size: 0.85em;
+  color: var(--text-medium);
+}
+
+#answerContainer, 
+.answers-container { /* Styles for the answers container on the home screen */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+/* BUTTONS */
+.btn-primary,
+.btn-secondary { /* Base styles for primary and secondary buttons */
+  padding: 15px;
+  border: none;
+  border-radius: 0;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.btn-primary { /* Styles for the primary button */
+  background: var(--trivia-orange);
+  color: var(--white);
+  margin-top: auto;
+}
+
+.btn-primary:hover { /* Hover effect for the primary button */
+  background: var(--trivia-orange-dark);
+}
+
+.btn-primary:active { /* Active state for the primary button */
+  opacity: 0.9;
+}
+
+.btn-secondary { /* Styles for the secondary button */
+  background: var(--trivia-orange);
+  color: var(--white);
+  border: 1px solid var(--trivia-orange);
+  flex: 1;
+}
+
+.btn-secondary:hover { /* Hover effect for the secondary button */
+  background: var(--trivia-orange-dark);
+}
+
+.button-group { /* Container for grouping buttons together */
+  display: flex;
+  gap: 0;
+  margin-top: 15px;
+}
+
+.button-group button { /* Styles for buttons within the button group */
+  flex: 1;
+}
+
+.button-group .btn-primary { /* Styles for the primary button within the button group */
+  margin-top: 0;
+}
+
+/* GAME HEADER */
+.game-header { /* Styles for the game header that appears during the trivia game */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: var(--header-bg);
+  color: var(--white);
+  font-weight: 600;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.progress-info { /* Styles for the progress information in the game header */
+  font-size: 0.9em;
+}
+
+.timer { /* Styles for the timer in the game header */
+  font-size: 1.1em;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+}
+
+.timer.warning { /* Styles for the timer when it's in the warning state (last 5 seconds) */
+  color: #e67e22; /* Trivia orange */
+  animation: pulse 0.5s infinite;
+}
+
+@keyframes pulse { /* Simple pulse animation for the timer warning state */
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.score-info { /* Styles for the score information in the game header */
+  font-size: 0.9em;
+}
+
+/* TRIVIA SCREEN */
+#triviaScreen .screen-content { /* Styles specific to the trivia screen content */
+  justify-content: flex-start;
+  padding-top: 15px;
+}
+
+.progress-bar { /* Styles for the progress bar on the trivia screen */
+  display: none;
+}
+
+.progress-fill { /* Styles for the fill of the progress bar */
+  display: none;
+}
+
+.question-text { /* Styles for the question text on the trivia screen */
+  font-size: 1.3em;
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.answers-container { /* Styles for the container that holds the answer buttons on the trivia screen */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.answer-btn { /* Styles for each answer button on the trivia screen */
+  padding: 25px 10px;
+  border: 1px solid var(--medium-gray);
+  border-radius: 0;
+  background: white;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
+  min-height: auto;
+  font-weight: 500;
+  color: var(--text-dark);
+  line-height: 1.4;
+}
+
+.answer-btn:nth-child(1) { /* Styles for the first answer button (green) */
+  background: var(--option-green);
+}
+
+.answer-btn:nth-child(2) { /* Styles for the second answer button (red) */
+  background: var(--option-red);
+}
+
+.answer-btn:nth-child(3) { /* Styles for the third answer button (yellow) */
+  background: var(--option-yellow);
+}
+
+.answer-btn:nth-child(4) { /* Styles for the fourth answer button (blue) */
+  background: var(--option-blue);
+}
+
+.answer-btn:hover:not(:disabled) { /* Hover effect for answer buttons that are not disabled */
+  opacity: 0.8;
+  border-color: var(--connect-blue);
+}
+
+.answer-btn.selected { /* Styles for the selected answer button */
+  background: var(--connect-blue);
+  color: var(--white);
+  border-color: var(--connect-blue);
+}
+
+.answer-btn:disabled { /* Styles for disabled answer buttons */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.feedback-message { /* Styles for the feedback message that appears after answering a question */
+  padding: 12px;
+  border-radius: 0;
+  font-weight: 600;
+  text-align: center;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;
+}
+
+.feedback-message.correct { /* Styles for the feedback message when the answer is correct */
+  background: var(--correct-green);
+  color: var(--white);
+  border: 1px solid var(--correct-green);
+}
+
+.feedback-message.incorrect { /* Styles for the feedback message when the answer is incorrect */
+  background: var(--incorrect-red);
+  color: var(--white);
+  border: 1px solid var(--incorrect-red);
+}
+
+
+/* RESULTS SCREEN */
+#resultsScreen .screen-content { /* Styles specific to the results screen content */
+  justify-content: flex-start;
+  padding-top: 15px;
+}
+
+#resultsScreen h1 { /* Styles for the main heading on the results screen */
+  text-align: center;
+  color: var(--text-dark);
+  font-size: 1.5em;
+  margin-bottom: 20px;
+}
+
+.results-stats { /* Styles for the container that holds the statistics on the results screen */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+ 
+.stat-box { /* Styles for each individual statistic box on the results screen */
+  background: var(--light-gray);
+  color: var(--dark-gray);
+  padding: 15px 8px;
+  border-radius: 0;
+  text-align: center;
+  border: 1px solid var(--medium-gray);
+}
+
+.stat-value { /* Styles for the value of each statistic */
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label { /* Styles for the label of each statistic */
+  font-size: 0.8em;
+  color: var(--text-light);
+}
+
+.wrong-answers-section { /* Styles for the section that displays wrong answers on the results screen */
+  margin-bottom: 20px;
+}
+
+.wrong-answers-section h3 { /* Styles for the heading of the wrong answers section */
+  margin-bottom: 12px;
+  color: var(--text-dark);
+  font-size: 1em;
+}
+
+.wrong-answers-list { /* Styles for the list that contains wrong answer items on the results screen */
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.wrong-answer-item { /* Styles for each individual wrong answer item in the list */
+  flex-direction: column;
+  padding: 10px;
+  background: var(--trivia-orange);
+  color: var(--white);
+  border-left: 3px solid var(--trivia-orange-dark);
+  margin-bottom: 8px;
+}
+
+.wrong-q-number { /* Styles for the question number in each wrong answer item */
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+  font-size: 0.9em;
+}
+
+.wrong-q-content { /* Styles for the question content in each wrong answer item */
+  flex: 1;
+}
+
+.wrong-question { /* Styles for the question text in each wrong answer item */
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 4px;
+  font-size: 0.85em;
+}
+
+.wrong-user,
+.wrong-correct { /* Styles for the user's answer and the correct answer in each wrong answer item */
+  font-size: 0.75em;
+  margin: 2px 0;
+}
+
+.wrong-user { /* Styles for the user's answer in each wrong answer item */
+  color: #c0392b;
+}
+
+.wrong-correct { /* Styles for the correct answer in each wrong answer item */
+  color: #27ae60;
+}
+
+.perfect-score { /* Styles for the message displayed when the user gets a perfect score on the results screen */
+  text-align: center;
+  color: var(--white);
+  font-size: 1.1em;
+  padding: 20px;
+  background: var(--trivia-orange);
+  border-radius: 0;
+}
+
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar { /* Styles for the scrollbar */
+  width: 6px;
+}
+
+::-webkit-scrollbar-track { /* Styles for the scrollbar track */
+  background: #85c1e2; /* Connect blue */
+}
+
+::-webkit-scrollbar-thumb { /* Styles for the scrollbar thumb */
+  background: #e67e22; /* Trivia orange */
+}
+
+::-webkit-scrollbar-thumb:hover { /* Hover effect for the scrollbar thumb */
+  background: #d35400; /* Darker orange */
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) { /* Styles for screens smaller than 600px (mobile devices) */
+  .app-container {
+    border-radius: 0;
+  }
+}
