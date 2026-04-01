@@ -61,7 +61,7 @@ class GameLogic:
         self.connection.commit()
 
   def select_daily_questions(self, questions_per_category=10):
-    today = datetime.now().date().isoformat()
+    today = datetime.now().date()
     daily_questions = []
     categories = self.get_all_categories()
     for category in categories:
@@ -72,8 +72,9 @@ class GameLogic:
             unused_questions = self.get_unused_questions(category, today)
         selected = random.sample(unused_questions, min(len(unused_questions), questions_per_category))
         for question in selected:
-            question_id, question_text, answers_str = question
-            answers = answers_str.split(';')
+            question_id = question["id"]
+            question_text = question["question"]
+            answers = question["answers"]
             daily_questions.append({
                 'category': category,
                 'question_id': question_id,
