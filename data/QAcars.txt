@@ -1,0 +1,350 @@
+What company makes the Mustang?
+Ford
+Chevrolet
+Dodge
+Toyota
+Which car brand has a prancing horse logo?
+Ferrari
+Lamborghini
+Porsche
+BMW
+What does SUV stand for?
+Sport Utility Vehicle
+Super Utility Vehicle
+Standard Urban Vehicle
+Sport Urban Van
+Which company produces the Corolla?
+Toyota
+Honda
+Nissan
+Hyundai
+What is the fastest land production car brand?
+Bugatti
+Ford
+Chevrolet
+BMW
+Which country is BMW from?
+Germany
+Italy
+France
+Japan
+What does ABS stand for in cars?
+Anti-lock Braking System
+Automatic Brake System
+Advanced Brake Setup
+Auto Balance System
+Which brand makes the Civic?
+Honda
+Toyota
+Ford
+Mazda
+What type of car is a Tesla Model S?
+Electric
+Hybrid
+Diesel
+Gasoline
+Which company makes the Camaro?
+Chevrolet
+Ford
+Dodge
+Nissan
+What does MPG measure?
+Fuel efficiency
+Engine power
+Speed
+Weight
+Which brand owns Lexus?
+Toyota
+Honda
+Nissan
+Mazda
+What is a convertible car?
+A car with a removable roof
+A car with four doors
+A car with a large trunk
+A car with no engine
+Which company makes the F-150?
+Ford
+Chevrolet
+Ram
+GMC
+Which fuel type uses no gasoline?
+Electric
+Diesel
+Hybrid
+Petrol
+Which brand makes the Accord?
+Honda
+Toyota
+Nissan
+Hyundai
+What does horsepower measure?
+Engine power
+Fuel economy
+Car weight
+Tire pressure
+Which car company is known for the Model 3?
+Tesla
+Ford
+Chevrolet
+Toyota
+Which country is Ferrari from?
+Italy
+Germany
+USA
+France
+What is a hybrid car?
+Uses gas and electricity
+Uses only gas
+Uses only diesel
+Uses hydrogen only
+Which company makes the Altima?
+Nissan
+Toyota
+Honda
+Mazda
+What is a sedan?
+A four-door car
+A two-door sports car
+A truck
+An SUV
+Which brand makes the Charger?
+Dodge
+Ford
+Chevrolet
+Toyota
+What does RPM stand for?
+Revolutions per minute
+Rotations per motor
+Rapid power motion
+Rate per mile
+Which company makes the Prius?
+Toyota
+Honda
+Ford
+Hyundai
+What type of vehicle is a pickup?
+Truck
+Sedan
+SUV
+Coupe
+Which brand makes the Elantra?
+Hyundai
+Kia
+Toyota
+Honda
+Which country is Lamborghini from?
+Italy
+Germany
+USA
+Japan
+What is torque in a car?
+Rotational force
+Speed
+Fuel usage
+Weight
+Which company makes the Explorer?
+Ford
+Chevrolet
+Dodge
+Jeep
+What is a coupe?
+A two-door car
+A four-door car
+A truck
+An SUV
+Which brand makes the Wrangler?
+Jeep
+Ford
+Toyota
+Nissan
+What does EV stand for?
+Electric Vehicle
+Engine Vehicle
+Energy Van
+Eco Van
+Which company makes the Malibu?
+Chevrolet
+Ford
+Toyota
+Honda
+What is all-wheel drive?
+Power to all wheels
+Power to front wheels
+Power to rear wheels
+No engine power
+Which brand makes the Sorento?
+Kia
+Hyundai
+Toyota
+Honda
+Which country is Toyota from?
+Japan
+USA
+Germany
+France
+What is a hatchback?
+Car with rear door opening upward
+Car with no trunk
+Truck
+Convertible
+Which company makes the Impala?
+Chevrolet
+Ford
+Toyota
+Nissan
+What does VIN stand for?
+Vehicle Identification Number
+Vehicle Info Number
+Verified ID Number
+Value Index Number
+Which brand makes the CR-V?
+Honda
+Toyota
+Ford
+Mazda
+What is diesel fuel used for?
+Engines
+Tires
+Brakes
+Lights
+Which company makes the Tacoma?
+Toyota
+Ford
+Chevrolet
+Nissan
+What is a minivan?
+Family vehicle
+Sports car
+Truck
+Coupe
+Which brand makes the Mustang Mach-E?
+Ford
+Tesla
+Chevrolet
+Nissan
+What is traction control?
+Prevents wheel slipping
+Increases speed
+Improves fuel use
+Adds horsepower
+Which company makes the Rogue?
+Nissan
+Toyota
+Honda
+Mazda
+What is a luxury car?
+High-end vehicle
+Cheap car
+Truck
+Van
+Which brand makes the 911?
+Porsche
+Ferrari
+BMW
+Audi
+What is a turbocharger?
+Boosts engine power
+Reduces speed
+Stores fuel
+Controls brakes
+Which company makes the Highlander?
+Toyota
+Honda
+Ford
+Chevrolet
+What is a sports car?
+High-performance car
+Truck
+SUV
+Van
+Which brand makes the A4?
+Audi
+BMW
+Mercedes
+Volkswagen
+What is braking distance?
+Distance to stop
+Distance traveled
+Speed limit
+Fuel range
+Which company makes the Odyssey?
+Honda
+Toyota
+Ford
+Chevrolet
+What is cruise control?
+Maintains speed
+Increases speed
+Stops car
+Changes gears
+Which brand makes the G-Class?
+Mercedes-Benz
+BMW
+Audi
+Volvo
+What is horsepower?
+Measure of engine power
+Fuel usage
+Weight
+Speed limit
+Which company makes the CX-5?
+Mazda
+Toyota
+Honda
+Ford
+What is a manual transmission?
+Driver shifts gears
+Automatic shifting
+Electric motor
+Hybrid system
+Which brand makes the Model X?
+Tesla
+Ford
+Chevrolet
+Toyota
+What is fuel economy?
+Efficiency of fuel use
+Speed
+Weight
+Horsepower
+Which company makes the Forester?
+Subaru
+Toyota
+Honda
+Mazda
+What is a drivetrain?
+System delivering power
+Fuel system
+Brake system
+Lighting system
+Which brand makes the XC90?
+Volvo
+BMW
+Audi
+Mercedes
+What is engine displacement?
+Engine size
+Speed
+Fuel use
+Weight
+Which company makes the Silverado?
+Chevrolet
+Ford
+Ram
+Toyota
+What is a catalytic converter?
+Reduces emissions
+Increases speed
+Stores fuel
+Controls steering
+Which brand makes the Outback?
+Subaru
+Toyota
+Honda
+Mazda
+What is lane assist?
+Helps stay in lane
+Increases speed
+Improves fuel use
+Adds horsepower
