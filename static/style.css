@@ -321,14 +321,15 @@ body { /* Base styles for the body */
 
 .answers-container { /* Styles for the container that holds the answer buttons on the trivia screen */
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-grow: 1;
+  grid-template-columns: repeat(2, 1fr);
+  row-gap: 10px; /* adjust this to reduce vertical space */
+  column-gap: 10px;
+  margin-top: 120px; /* space above answers */
 }
 
 .answer-btn { /* Styles for each answer button on the trivia screen */
-  padding: 25px 10px;
+  height: 100px;          /* Set fixed height */
+  padding: 0 10px;       /* Adjust padding to avoid extra height */
   border: 1px solid var(--medium-gray);
   border-radius: 0;
   background: white;
