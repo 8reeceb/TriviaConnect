@@ -60,6 +60,8 @@ def create_trivia_table():
     connection.commit()
 
 
+
+
 #Creates a temporary table consisting of a number of topics, can be used to isolate
 #desired questions from undesired questions and is formatted to allow gamemodes where
 #more than one topic exists at a time.
@@ -249,41 +251,44 @@ def remove_row(table,id):
 #if the file is located in the same area as TriviaDatabases.py. If it's not then
 #fileName has to be the path to the file instead. 
 #Topic should be all lowercase.
-def populate_trivia(fileName,topic):
+def populate_trivia(fileName, topic):
     try:
-        cursor.execute(f"DELETE FROM trivia WHERE Topic = '{topic}'")
+        cursor.execute(f"DELETE FROM trivia WHERE Topic = ?", (topic,))
         connection.commit()
     except Exception as e:
         print(e)
 
     with open(fileName, 'r', encoding='utf-8') as txt:
-        i = 0
-        question = ''
-        answers = ''
         added = 0
-        for line in txt:
-            if i == 0:
-                question = line[:-1]
-                i += 1
-            else:
-                if i == 1:
-                    answers += (line[:-1])
+        lines = txt.readlines()
+        i = 0
+        while i < len(lines):
+            question = lines[i].strip()
+            i += 1
+            # Read next 4 lines as answers
+            answers_list = []
+            for _ in range(4):
+                if i < len(lines):
+                    answers_list.append(lines[i].strip())
                     i += 1
                 else:
-                    answers += (';' + line[:-1])
-                    i += 1
-            if i == 5:
-                try:
-                    cursor.execute(f'INSERT INTO trivia (Topic, Question, Answers) VALUES (?,?,?)',(f"""{topic}""",f"""{question}""",f"""{answers}""",))
-                    i = 0
-                    added += 1
-                    question = ''
-                    answers = ''
-                except Exception as e:
-                    print(e)
-        
+                    # Not enough lines for answers, break early
+                    break
+            # Join answers with semicolon
+            answers = ';'.join(answers_list)
+
+            try:
+                cursor.execute(
+                    'INSERT INTO trivia (Topic, Question, Answers) VALUES (?, ?, ?)',
+                    (topic, question, answers)
+                )
+                added += 1
+            except Exception as e:
+                print(e)
+
         connection.commit()
         print(f'Added {added} entries to Trivia.')
+
 
 
 
